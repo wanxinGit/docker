@@ -1,17 +1,17 @@
 #!/bin/bash
 
-#when on error line , stop excute.
 set -e
 
-#
-# When Startup Container script
-#
+REPO_DIR=/opt/svn/repo
 
-if [ "`ls -A ${DATA_DIR}`" = "" ]; then
-	# config subversion
-	# mkdir -p ${DATA_DIR}
-	svnadmin create ${DATA_DIR}
-	\cp -rf /opt/svn/config/* ${DATA_DIR}/conf
+if [ "`ls -A ${REPO_DIR}`" = "" ]; then
+	echo "${REPO_DIR}" is empty need init...
+	svnadmin create ${REPO_DIR}
+	\cp -rf /opt/svn/config/* ${REPO_DIR}/conf
 fi
 
-svnserve -d -r ${DATA_DIR}
+svnserve -d -r ${REPO_DIR}
+
+echo "svnserve started.."
+
+tail -f /dev/null
