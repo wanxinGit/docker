@@ -5,8 +5,8 @@
 3、默认svn管理员账户admin/123456（见config/passwd）
 
 4、推荐启动命令
-docker run -d 
--p 3690:3690 
--v /opt/docker/storage/svn/repo:/opt/svn/repo 
---restart always 
---name svn yufex/svn:1.0.0
+docker run -d \
+-p 3690:3690 \
+-v /opt/docker/storage/svn/repo:/opt/svn/repo \
+--restart always \
+--name svn yufex/svn:v1
