@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!-- 对应版本发布时用户名密码 -->
+	<servers>
+		<server>
+			<id>snapshots</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+		<server>
+			<id>releases</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+	</servers>
+
+	<!-- 中央库镜像化 -->
+	<mirrors>
+		<mirror>
+			<id>nexus-tx</id>
+			<mirrorOf>*</mirrorOf>
+			<url>http://120.24.75.25:8081/nexus/content/groups/public/</url>
+		</mirror>
+	</mirrors>
+
+	<!-- 激活全局的repositories -->
+	<profiles>
+		<profile>
+			<id>tx_profile</id>
+			<repositories>
+				<repository>
+					<id>nexus-tx</id>
+					<url>http://120.24.75.25:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>nexus-tx</id>
+					<url>http://120.24.75.25:8081/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>tx_profile</activeProfile>
+	</activeProfiles>
+
+</settings>
