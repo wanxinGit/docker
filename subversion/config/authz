@@ -16,8 +16,8 @@
 ### ('').
 
 [groups]
-admin = wanxin
-yufex_dev = shimaoxin,pengtao
+admin = admin
+yufex_dev = wanxin,shimaoxin,pengtao
 
 [/]
 @admin = rw

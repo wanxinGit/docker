@@ -1,10 +1,6 @@
-# docker
+#此项目下包含几个持续构建相关的容器，用于项目管理和测试环境搭建
+1、subversion
 
-the docker project can be run with
+2、jenkins
 
-docker run -d \
--p 3690:3690 \
--v /opt/docker/storage/svn/repo:/opt/svn/repo \
---restart always \
---name svn
-yufex/svn:1.0.0
+3、
