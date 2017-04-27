@@ -12,6 +12,7 @@ docker run \
 -v /opt/docker/base_env:/opt/base_env \
 -v /opt/docker/storage/jenkins:/var/jenkins_home \
 --restart always \
+--link svn:local_svn \
 --name jenkins jenkins:2.46.1
 
 4、拷贝自定义的setting.xml文件到/var/jenkins_home/.m2目录中
