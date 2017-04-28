@@ -37,3 +37,13 @@ fi
 docker run -d -p 8090:8080 --link mysql:local_mysql -v /opt/docker/base_env:/opt/base_env --name yufex-wtms --restart always yufex/yufex-wtms
 
 ###########################################################################################
+
+遇到的问题：
+1、启动后访问不了
+经过查看tomcat启动日志发现，卡在了deploy阶段
+百度得知，因为centos7本身安全性原因，需要修改jre下的文件jre/lib/security/java.security
+将securerandom.source=file:/dev/urandom 改为 securerandom.source=file:/dev/./urandom即可
+
+2、tomcat启动参数配置问题
+本来想在Dockerfile里配置替换catalina.sh，后来觉得没必要，不如直接tomcat的压缩包里的文件
+JAVA_OPTS='-Xms1024m -Xmx1024m -XX:PermSize=256M -XX:MaxNewSize=512m -XX:MaxPermSize=512m'
