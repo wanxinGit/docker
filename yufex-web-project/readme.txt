@@ -40,7 +40,7 @@ if docker ps -a | grep -i ${PROJECT_NAME}; then
 fi
 
 #run new container
-docker run -d -p ${PROJECT_PORT}:8080 --link mysql:local_mysql -v /opt/docker/base_env:/opt/base_env --name ${PROJECT_NAME} --restart always yufex/yufex-web-project
+docker run -d -p ${PROJECT_PORT}:8080 --link mysql:local_mysql -v /opt/docker/base_env:/opt/base_env -v /etc/localtime:/etc/localtime:ro -e TZ="Asia/Shanghai" --name ${PROJECT_NAME} --restart always yufex/yufex-web-project
 
 ###########################################################################################
 
@@ -72,7 +72,7 @@ if docker ps -a | grep -i ${PROJECT_NAME}; then
 fi
 
 #run new container
-docker run -d -p ${PROJECT_PORT}:8080 --link mysql:local_mysql --link yufex-wtms:yufex-wtms -v /opt/docker/base_env:/opt/base_env --name ${PROJECT_NAME} --restart always yufex/yufex-web-project
+docker run -d -p ${PROJECT_PORT}:8080 --link mysql:local_mysql --link yufex-wtms:yufex-wtms -v /opt/docker/base_env:/opt/base_env -v /etc/localtime:/etc/localtime:ro -e TZ="Asia/Shanghai" --name ${PROJECT_NAME} --restart always yufex/yufex-web-project
 
 ###########################################################################################
 

@@ -8,5 +8,7 @@
 docker run -d \
 -p 3690:3690 \
 -v /opt/docker/storage/svn/repo:/opt/svn/repo \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
 --restart always \
 --name svn yufex/svn:v1

@@ -3,6 +3,8 @@ docker run -d \
 --name mysql \
 -e "MYSQL_ROOT_PASSWORD=admin" \
 -v /opt/docker/storage/mysql:/var/lib/mysql \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
 -p 3306:3306 \
 --restart always \
 mysql:5.6 \

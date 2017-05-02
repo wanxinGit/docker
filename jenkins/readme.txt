@@ -11,6 +11,8 @@ docker run \
 -p 50000:50000 \
 -v /opt/docker/base_env:/opt/base_env \
 -v /opt/docker/storage/jenkins:/var/jenkins_home \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
 --restart always \
 --link svn:local_svn \
 --name jenkins jenkins:2.46.1
