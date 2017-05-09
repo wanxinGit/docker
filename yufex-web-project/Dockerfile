@@ -22,7 +22,7 @@ ENV TOMCAT_HOME /opt/server/apache-tomcat-7.0.77
 RUN echo ${TOMCAT_HOME}
 RUN chmod 777 ${TOMCAT_HOME}/bin/*.sh
 
-# put web package
+# put web package(将这个步骤移到-v挂在卷来处理)
 RUN rm -rf ${TOMCAT_HOME}/webapps/*
 COPY war ${TOMCAT_HOME}/webapps
 
