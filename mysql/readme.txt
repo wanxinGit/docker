@@ -8,7 +8,7 @@ docker run -d \
 -p 3306:3306 \
 --restart always \
 mysql:5.6 \
---character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_connections=3000 --lower_case_table_names=1 --max_allowed_packet=10m
+--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_connections=3000 --lower_case_table_names=1 --max_allowed_packet=1024m
 
 包含
 1）设置root初始密码为admin
