@@ -5,6 +5,9 @@ docker run \
 -v /opt/docker/storage/subversion/svn:/var/local/svn \
 -v /opt/docker/storage/subversion/backup:/var/svn-backup \
 -v /opt/docker/storage/subversion/conf:/etc/apache2/dav_svn/ \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
+--restart always \
 --name subversion marvambass/subversion
 
 °üº¬
