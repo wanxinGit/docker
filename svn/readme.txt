@@ -25,7 +25,7 @@ htdigest -c /opt/docker/storage/subversion/conf/dav_svn.passwd Subversion testus
 7）svn访问方式
 http://ip/svn/(svn下目录名)
 8）发现一个目录svn目录不会自动创建的问题，很奇怪，看定时任务是正常的，每十分钟执行
-很神奇，实际只需要通过下边方式临时解决
+很神奇，暂时只需要通过下边方式临时解决
 cp /etc/crontab /tmp/crontab
 cp /tmp/crontab /etc/crontab
---怀疑还是跟宿主机系统版本有关，在有些机器上似乎不会出现！
+--好像跟宿主机还没关系，测试了用ubuntu14.04系统(必须要执行cron start)测试并没有这个问题
