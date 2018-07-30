@@ -1,0 +1,47 @@
+#这里版本号需要和docker版本对应，对照关系可参照https://docs.docker.com/compose/compose-file/
+version: '3.4'
+services:
+  #指定的服务名称
+  nginx:
+    #m默认启动的容器名称为<项目名称>_<服务名称>_<序号>，如果要完全控制，也可以通过这个参数来指定
+   #container_name: v_nginx
+   image: nginx:1.13
+   restart: always
+   ports:
+   - 81:80
+   #- 443:443
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+
+  mysql:
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_DATABASE: test
+    MYSQL_ROOT_PASSWORD: admin
+    MYSQL_ROOT_HOST: '%'
+   ports:
+   - "3306"
+   restart: always
+
+  app:
+    restart: always
+    #通过build参数可以指定一个Dockerfile所在目录
+    #build: ./app
+    #通过image参数可以指定一个镜像，如果同时指定build和image，则会根据Dockerfile构建一个名字为image中指定的镜像
+    image: maven:3.5-jdk-8
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ~/.m2:/usr/share/maven/ref
+    expose:
+      - "8080"
+    #配置依赖的服务名称(注意，不是容器名称)
+    depends_on:
+      - nginx
+      - mysql
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
+  test:
+   image: hub.c.163.com/public/centos:6.7-tools
+   depends_on:
+      - mysql
+      - nginx
