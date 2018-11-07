@@ -15,6 +15,8 @@ docker run \
 -e TZ="Asia/Shanghai" \
 --restart always \
 --link svn:local_svn \
---name jenkins jenkins:2.46.2
+--name jenkins jenkins/jenkins:lts
+
+#20181106更换镜像版本为jenkins/jenkins，之前的jenkins是很早的版本了，插件都装不了
 
 4、拷贝自定义的setting.xml文件到/var/jenkins_home/.m2目录中

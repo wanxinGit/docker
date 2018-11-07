@@ -1,6 +1,6 @@
 Æô¶¯½Å±¾£º
 docker run --detach \
-	--hostname gitlab.example.com \
+	--hostname 172.19.20.5 \
 	--publish 8443:443 --publish 8090:80 --publish 2222:22 \
 	--name gitlab \
 	--restart always \
