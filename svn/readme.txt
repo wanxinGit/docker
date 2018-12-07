@@ -30,3 +30,7 @@ cp /etc/crontab /tmp/crontab
 cp /tmp/crontab /etc/crontab
 --好像跟宿主机还没关系，测试了用ubuntu14.04系统(必须要执行cron start)测试并没有这个问题
 # 20181106测试，在CentOS7.2系统上没有第8的问题
+9）注意，配置dav_svn.authz时，格式如下：
+[cqpgx-other:/]
+testuser = rw
+括号里边可以跟更详细的文件路径
