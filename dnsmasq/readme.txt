@@ -20,3 +20,6 @@ host myhost.company dns
 http://192.168.26.110:5380/
 也可以直接映射本地的配置文件到容器中
 -v /opt/dnsmasq.conf:/etc/dnsmasq.conf
+
+此容器用的是dnsmasq组件，其详细介绍和参数配置详见：
+http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
