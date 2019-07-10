@@ -2,7 +2,7 @@
 
 2、*由于jenkins容器内默认用的jenkins账户权限，而不是root，所以有两个地方要注意，否则会报权限错误
 1）5命令用到挂载/var/jenkins_home的宿主机目录，需要赋予其他用户读写的权限
-chmod 777 /opt/docker/base_env
+2）chmod 777 /opt/docker/base_env
 
 3、推荐启动命令
 docker run \
@@ -14,8 +14,9 @@ docker run \
 -v /etc/localtime:/etc/localtime:ro \
 -e TZ="Asia/Shanghai" \
 --restart always \
---link svn:local_svn \
---name jenkins jenkins/jenkins:lts
+--link subversion:local_svn \
+--link nexus:local_nexus \
+--name jenkins jenkins/jenkins:latest
 
 #20181106更换镜像版本为jenkins/jenkins，之前的jenkins是很早的版本了，插件都装不了
 
