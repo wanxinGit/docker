@@ -25,7 +25,7 @@ docker run --detach \
 	--volume /opt/docker/storage/gitlab/config:/etc/gitlab \
 	--volume /opt/docker/storage/gitlab/logs:/var/log/gitlab \
 	--volume /opt/docker/storage/gitlab/data:/var/opt/gitlab \
-	gitlab/gitlab-ce:16.1.6-ce.0
+	gitlab/gitlab-ce:16.3.7-ce.0
 
 #三个挂载目录分别对应配置、日志、存储数据
 
