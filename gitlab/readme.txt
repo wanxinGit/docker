@@ -27,6 +27,7 @@ docker run --detach \
 	--volume /opt/docker/storage/gitlab/data:/var/opt/gitlab \
 	gitlab/gitlab-ce:16.3.7-ce.0
 
+
 #三个挂载目录分别对应配置、日志、存储数据
 
 #20181115
@@ -35,3 +36,39 @@ docker run --detach \
 
 #20181119
 为解决ssh端口访问gitlab的问题，新增参数和映射端口配置
+
+
+=======================Gitlab-runner================================
+# 启动gitlab-runner
+docker run -d --name gitlab-runner --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /opt/docker/storage/gitlab-runner/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner:v16.3.1
+
+# 进入容器
+docker exec -it gitlab-runner
+
+# 执行注册绑定
+gitlab-runner register \
+--non-interactive \
+--url "http://172.19.20.5:8090" \
+--registration-token "AaLVzw9oaxihxLYdKXVS" \
+--executor "docker" \
+--docker-image maven:latest \
+--description "gr01" \
+--tag-list "runner-01" \
+--run-untagged="true" \
+--locked="false" \
+--access-level="not_protected"
+
+gitlab-runner register \
+--non-interactive \
+--url "http://172.19.20.5:8090" \
+--registration-token "AaLVzw9oaxihxLYdKXVS" \
+--executor "docker" \
+--docker-image maven:latest \
+--description "gr02" \
+--tag-list "runner-02" \
+--run-untagged="true" \
+--locked="false" \
+--access-level="not_protected"
