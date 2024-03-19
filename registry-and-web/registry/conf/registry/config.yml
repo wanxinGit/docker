@@ -1,0 +1,22 @@
+version: 0.1
+ 
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+ 
+http:
+  addr: 0.0.0.0:5000
+ 
+auth:
+  token:
+    # external url to docker-web authentication endpoint
+    realm: http://172.19.20.5:8000/api/auth
+    # should be same as registry.name of registry-web
+    service: 172.19.20.5:5000
+    # should be same as registry.auth.issuer of registry-web
+    issuer: 'admin'
+    # path to auth certificate    
+    rootcertbundle: /etc/docker/registry/auth.cert
+
+
+

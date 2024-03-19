@@ -1,0 +1,14 @@
+registry:
+  # 私有仓库地址.
+  url: http://172.19.20.5:5000/v2
+  # 私有仓库命名.
+  name: 172.19.20.5:5000
+  # 是否只读设置.
+  readonly: false
+  auth:
+    # 是否进行鉴权处理.
+    enabled: true
+    # 需要与私有仓库定义的名称一致.
+    issuer: 'admin'
+    # 容器内私钥证书路径，容器启动时通过数据卷参数指定.
+    key: /conf/auth.key
