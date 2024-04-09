@@ -43,10 +43,11 @@ docker run --detach \
 docker run -d --name gitlab-runner --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /opt/docker/storage/gitlab-runner/config:/etc/gitlab-runner \
+  -v /opt/docker/storage/gitlab-runner/other_env:/opt/other_env \
   gitlab/gitlab-runner:v16.3.1
 
 # 进入容器
-docker exec -it gitlab-runner
+docker exec -it gitlab-runner /bin/bash
 
 # 执行注册绑定
 gitlab-runner register \
@@ -72,3 +73,36 @@ gitlab-runner register \
 --run-untagged="true" \
 --locked="false" \
 --access-level="not_protected"
+
+# 手动修改配置文件：
+/opt/docker/storage/gitlab-runner/config/config.toml
+
+[[runners]]
+  name = "gr01"
+  url = "http://172.19.20.5:8090"
+  id = 5
+  token = "b-5ZAqog4bdgoLtD_rd7"
+  token_obtained_at = 2024-03-21T07:00:23Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker"
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
+  [runners.docker]
+    tls_verify = false
+    image = "docker:24.0.7"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    #改成跟我一样的：buildkit.toml文件是上一个教程里创建的用来http访问私有仓库、daemon.json里是配置了国内镜像和私有仓库地址、/certs/client是配置tls需要的
+    volumes = ["/certs/client", "/cache", "/root/buildkit.toml:/root/buildkit.toml:ro", "/etc/docker/daemon.json:/etc/docker/daemon.json:ro"]
+    shm_size = 0
+    extra_hosts = ["172.19.20.5:172.19.20.5", "registry:172.19.20.5"]
+    [[runners.docker.services]]  #增加这个service块，这样gitlab-ci.yml里就可以省略services了
+        name = "docker:24.0.7-dind"
+
+
+
+
+重启容器来实现配置重新加载
+docker restart gitlab-runner
