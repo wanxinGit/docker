@@ -85,23 +85,27 @@ gitlab-runner register \
   token_obtained_at = 2024-03-21T07:00:23Z
   token_expires_at = 0001-01-01T00:00:00Z
   executor = "docker"
+  #增加这行，目的是可以省略gitlab-ci.yml中的跟tls有关的配置、dind使用OverlayFS驱动加快构建速度
+  environment = ['DOCKER_DRIVER=overlay2', 'DOCKER_TLS_CERTDIR=/certs', 'DOCKER_AUTH_CONFIG={"auths": {"172.19.20.5:5000": {"auth": "YWRtaW46YWRtaW4="}}}']
   [runners.cache]
     MaxUploadedArchiveSize = 0
   [runners.docker]
     tls_verify = false
-    image = "docker:24.0.7"
+    image = "172.19.20.5:5000/docker:v1"
     privileged = true
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
     disable_cache = false
     #改成跟我一样的：buildkit.toml文件是上一个教程里创建的用来http访问私有仓库、daemon.json里是配置了国内镜像和私有仓库地址、/certs/client是配置tls需要的
-    volumes = ["/certs/client", "/cache", "/root/buildkit.toml:/root/buildkit.toml:ro", "/etc/docker/daemon.json:/etc/docker/daemon.json:ro"]
+    volumes = ["/cache", "/var/run/docker.sock:/var/run/docker.sock", "/etc/docker/daemon.json:/etc/docker/daemon.json:ro", "/opt/docker/storage/gitlab-runner/other_env:/opt/other_env:ro"]
     shm_size = 0
-    extra_hosts = ["172.19.20.5:172.19.20.5", "registry:172.19.20.5"]
-    [[runners.docker.services]]  #增加这个service块，这样gitlab-ci.yml里就可以省略services了
-        name = "docker:24.0.7-dind"
+    extra_hosts = ["registry:172.19.20.5"]
+    #[[runners.docker.services]]  #增加这个service块，这样gitlab-ci.yml里就可以省略services了
+    #    name = "docker:24.0.7-dind"
 
 
+
+# 增加DOCKER_AUTH_CONFIG，可以构建是下载私有仓库镜像
 
 
 重启容器来实现配置重新加载
