@@ -98,7 +98,8 @@ gitlab-runner register \
     disable_cache = false
     #改成跟我一样的：buildkit.toml文件是上一个教程里创建的用来http访问私有仓库、daemon.json里是配置了国内镜像和私有仓库地址、/certs/client是配置tls需要的
     volumes = ["/cache", "/var/run/docker.sock:/var/run/docker.sock", "/etc/docker/daemon.json:/etc/docker/daemon.json:ro", "/opt/docker/storage/gitlab-runner/other_env:/opt/other_env:ro"]
-    shm_size = 0
+    pull_policy = "if-not-present"
+	shm_size = 0
     extra_hosts = ["registry:172.19.20.5"]
     #[[runners.docker.services]]  #增加这个service块，这样gitlab-ci.yml里就可以省略services了
     #    name = "docker:24.0.7-dind"

@@ -11,9 +11,12 @@ openssl req -new -newkey rsa:4096 -days 365 \
 				
 3、启动registry容器
 docker run -d \
+--restart=always \
 -v /opt/docker/storage/registry/conf/registry/config.yml:/etc/docker/registry/config.yml:ro \
 -v /opt/docker/storage/registry/conf/registry/auth.cert:/etc/docker/registry/auth.cert:ro \
 -v /opt/docker/storage/registry/data:/var/lib/registry \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
 -e "REGISTRY_STORAGE_DELETE_ENABLED=true" \
 -p 5000:5000 \
 --name registry-srv \
@@ -26,6 +29,8 @@ docker run -it -d \
 -v /opt/docker/storage/registry/conf/registry-web/config.yml:/conf/config.yml:ro \
 -v /opt/docker/storage/registry/conf/registry-web/auth.key:/conf/auth.key \
 -v /opt/docker/storage/registry/db:/data \
+-v /etc/localtime:/etc/localtime:ro \
+-e TZ="Asia/Shanghai" \
 --name registry-web \
 hyper/docker-registry-web
 

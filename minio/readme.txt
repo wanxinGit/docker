@@ -1,4 +1,5 @@
 docker run -d \
+   --restart=always \
    -p 9000:9000 \
    -p 9090:9090 \
    --name minio \
